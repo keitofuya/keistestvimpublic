@@ -1,0 +1,170 @@
+# VS Code設定
+- [VS Code設定](#vs-code設定)
+  - [拡張機能のインストール](#拡張機能のインストール)
+  - [コードスニペットの生成](#コードスニペットの生成)
+  - [ツールのダウンロード](#ツールのダウンロード)
+  - [settings.jsonの設定](#settingsjsonの設定)
+## 拡張機能のインストール
+* Vim
+* Iceberg Theme
+	画面テーマの設定
+* VSCode File Explorer menu
+\<Ctrl>+\<h>でエクスプローラへ移動
+\<Ctrl>+\<l>でエクスプローラからコード編集ペインへ移動
+* Material Icon Theme       アイコンの表示
+* Bracket Pair Colorizer 2  括弧の対応可視化
+* Rainbow CSV               CSVファイルの表示
+* Activitus Bar             　アクティビティバーに表示する項目をステータスバーに表示
+* code eol 改行コードの可視化
+
+## コードスニペットの生成
+* [コードスニペットジェネレータ](https://snippet-generator.app/)
+## ツールのダウンロード
+* 全角半角切り替えツール(zenhan.exe)のダウンロード
+[実行ファイル](https://github.com/iuchim/zenhan/releases/download/v0.0.1/zenhan.zip)
+ダウンロードしたファイルを任意のフォルダへ格納する
+
+## settings.jsonの設定
+1. Ctr+Shift+pを入力する
+2. settings.jsonと入力する
+3. 以下の内容を貼り付ける
+4. zenhan.exeのパスを修正する
+5. ステータスバーの色変更を有効にするため、以下のファイルを編集する
+"~\.vscode\extensions\cocopon.iceberg-theme-2.0.3\themes\iceberg.color-theme.json"
+以下の3行をコメントアウト
+```json
+//“statusBar.debuggingForeground”: “#6b7089”,
+//“statusBar.foreground”: “#6b7089”,
+//“statusBar.noFolderForeground”: “#6b7089”,
+```
+6. settings.jsonの編集
+```json
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    // システムのクリップボードを利用する
+    "vim.useSystemClipboard": true,
+    // ハイライトサーチ
+    "vim.hlsearch": true,
+    // easymotionを有効にする
+    "vim.easymotion": true,
+    "workbench.colorTheme": "Iceberg",
+    // ビジュアルモードで*や#で検索
+    "vim.visualstar": true,
+    // 検索時に大文字小文字を無視する
+    "vim.ignorecase": true,
+    // インクリメンタルサーチ
+    "vim.incsearch": true,
+    // CamelCaseMotionを有効にする
+    "vim.camelCaseMotion.enable": true,
+    // leaderキーの設定
+    "vim.leader": "<space>",
+    // yankした箇所をハイライト表示する
+    "vim.highlightedyank.enable": true,
+    // yankした時の色
+    "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
+    // yankした時の色の表示時間(msec)
+    "vim.highlightedyank.duration": 500,
+    // nnorremap
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {"before": ["J"],"after"               : ["1","0","j"]},        //移動を早める
+        {"before": ["K"],"after"               : ["1","0","k"]},        //移動を早める
+        {"before": ["H"],"after"               : ["0"]},                //端に移動
+        {"before": ["L"],"after"               : ["$"]},                //端に移動
+        {"before": ["<Leader>", "h"],"after"   : ["<C-w>","h"]},        //window移動
+        {"before": ["<Leader>", "j"],"after"   : ["<C-w>","j"]},        //window移動
+        {"before": ["<Leader>", "k"],"after"   : ["<C-w>","k"]},        //window移動
+        {"before": ["<Leader>", "l"],"after"   : ["<C-w>","l"]},        //window移動
+        {"before": ["<Leader>", "s"],"after"   : ["<C-w>","s"]},        //WIndow水平分割
+        {"before": ["<Leader>", "v"],"after"   : ["<C-w>","v"]},        //WIndow垂直分割
+        {"before": ["v", "y"],"after"          : ["v","a","w","y"]},    //カーソル位置の単語をyankする
+        // VSCodeのRedo/Undoに設定する(外部で変更されると戻せないため)
+        {
+            "before": ["u"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "undo"
+                }
+            ]
+        },
+        {
+            "before": ["<C-r>"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "redo"
+                }
+            ]
+        },
+        // xやsでコピー(ヤンク)しないようにする
+        {
+            "before": ["x"],
+            "after": ["\"", "_", "x"]
+        },
+        {
+            "before": ["s"],
+            "after": ["\"", "_", "s"]
+        },
+        //{"before": ["<Leader>","s","\""], "after": ["c","i","w","\"","\"","<Esc>","P"]},
+        // Leader+cでその行をコメントアウトする
+        {"before": ["<Leader>", "c"], "commands": [{"command": "editor.action.commentLine"}]},
+        // Leader+mで対応する括弧へ移動するデフォルトのキーが押しにくい
+        {
+            "before": ["<Leader>", "m"],
+            "after": ["%"]
+        },
+    ],
+    "vim.insertModeKeyBindings": [
+        // 入力モードからjj入力でESCと同じ動作をさせる
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        },
+        // ;+;で補完ビューを表示する設定
+        {
+            "before": [";", ";"],
+            "commands": ["editor.action.triggerSuggest"]
+        },
+    ],
+    // Visual Mode
+    "vim.visualModeKeyBindingsNonRecursive": [
+        //vを押した直後はvのコマンドが残っているので注意
+        //visualmode後にすぐ実行したいものは、二重で定義する。
+        //外部プラグイン呼び出し
+        //{"before": ["<Leader>", "b"],"commands": [{"command":"alignment.align"}]},             //揃える
+        //{"before": ["<Leader>", "v"],"commands": [{"command":"extension.commentaligner"}]},    //コメントを揃える
+    ],
+    // 入力モードからノーマルモードへ戻った時に日本語入力をOFFにする
+    // zenhan.exe(全角半角変更ツール)を指定フォルダへ格納しておくこと
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.autoSwitchInputMethod.defaultIM": "0",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "D:\\Tool\\zenhan\\bin64\\zenhan.exe 0",
+    "vim.autoSwitchInputMethod.switchIMCmd": "D:\\Tool\\zenhan\\bin64\\zenhan.exe {im}",
+    // カーソルの点滅を滑らかにする
+    "editor.cursorBlinking": "smooth",
+    // 制御文字の表示
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    //markdown setting
+    "markdown.preview.breaks": true,
+    "editor.insertSpaces": false,
+    //========================================================================
+    //言語毎の設定
+    //========================================================================
+    //C関係の設定は社内の設定に合わせる
+    "[c]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+    },
+    "[cpp]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+    },
+    "[markdown]": {
+        "editor.tabSize": 2,                //タブサイズの設定
+        "editor.quickSuggestions":true,     //サジェスチョンをすべて有効にする
+        "editor.quickSuggestionsDelay": 0,  //サジェスチョンのディレイ
+    },
+    "workbench.activityBar.visible": false,
+}
+```
