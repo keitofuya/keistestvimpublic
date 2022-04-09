@@ -40,6 +40,8 @@
 6. settings.jsonの編集
 ```json
 {
+    "vim.vimrc.enable" : true,
+    "vim.vimrc.path" : "~/.vimrc",
     "security.workspace.trust.untrustedFiles": "open",
     // システムのクリップボードを利用する
     "vim.useSystemClipboard": true,
@@ -113,6 +115,11 @@
             "before": ["<Leader>", "m"],
             "after": ["%"]
         },
+        // Leader+s+"でクリップボードにコピーされた文字列を""でくくられた文字列に置換する
+        {
+            "before": ["<Leader>", "s", "\""],
+            "after": ["\"", "_", "c", "i", "\"", "<C-r>", "*", "<Esc>"]
+        },
     ],
     "vim.insertModeKeyBindings": [
         // 入力モードからjj入力でESCと同じ動作をさせる
@@ -125,6 +132,7 @@
             "before": [";", ";"],
             "commands": ["editor.action.triggerSuggest"]
         },
+        {"before": ["<C-l>"],"after"   : ["<Right>"]},        //右へ移動
     ],
     // Visual Mode
     "vim.visualModeKeyBindingsNonRecursive": [
@@ -165,6 +173,81 @@
         "editor.quickSuggestions":true,     //サジェスチョンをすべて有効にする
         "editor.quickSuggestionsDelay": 0,  //サジェスチョンのディレイ
     },
+    "workbench.iconTheme": "material-icon-theme",
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "editor.fontLigatures": false,
+    // フォント設定を'MyricaM'に設定
+    //"editor.fontFamily": "Consolas, 'Courier New', monospace"
+    "editor.fontFamily": "Consolas, 'MyricaM M', monospace",
+    // 入力補完でカーソル付近の単語を優先する
+    "editor.suggest.localityBonus": true,
+    // keywordを表示しない
+    "editor.suggest.showKeywords": false,
+    // 最近の候補を選択する
+    "editor.suggestSelection": "recentlyUsed",
+    // Enterキーで候補を受け入れない
+    "editor.acceptSuggestionOnEnter": "off",
+    // スニペットを先頭に表示する
+    "editor.snippetSuggestions": "top",
+    // アクティビティバーを非表示にする
     "workbench.activityBar.visible": false,
+    "editor.unicodeHighlight.includeComments": true,
+    // 全角空白のみハイライト表示する
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    // ステータスバーの色の設定を有効化する
+    // 動作がもっさりするのでfalseにする
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": [
+        "#161821",
+        "#818596"
+    ],
+    "vim.statusBarColors.insert": [
+        "#84A0C6",
+        "#161821"
+    ],
+    "vim.statusBarColors.visual": [
+        "#B4BE82",
+        "#161821"
+    ],
+    "vim.statusBarColors.visualline": [
+        "#B4BE82",
+        "#161821"
+    ],
+    "vim.statusBarColors.visualblock": [
+        "#B4BE82",
+        "#161821"
+    ],
+    "vim.statusBarColors.replace": [
+        "#E2A478",
+        "#161821"
+    ],
+    "vim.statusBarColors.commandlineinprogress": [
+        "#818596",
+        "#161821"
+    ],
+    "vim.statusBarColors.searchinprogressmode": [
+        "#818596",
+        "#161821"
+    ],
+    "vim.statusBarColors.easymotionmode": [
+        "#818596",
+        "#161821"
+    ],
+    "vim.statusBarColors.easymotioninputmode": [
+        "#818596",
+        "#161821"
+    ],
+    "vim.statusBarColors.surroundinputmode": [
+        "#818596",
+        "#161821"
+    ],
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#B4BE82",
+        "statusBar.noFolderBackground": "#B4BE82",
+        "statusBar.debuggingBackground": "#B4BE82",
+        "statusBar.foreground": "#161821",
+        "statusBar.debuggingForeground": "#161821"
+    },
+    "git.autofetch": true,
 }
 ```
