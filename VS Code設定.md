@@ -20,6 +20,8 @@
 - Rainbow CSV               CSVファイルの表示
 - Activitus Bar             　アクティビティバーに表示する項目をステータスバーに表示
 - code eol 改行コードの可視化
+- Alignment 複数のコードを揃える =の位置とか
+- comment aligner コメントの位置を揃える
 
 ## コードスニペットの生成
 
@@ -47,7 +49,15 @@
     //“statusBar.noFolderForeground”: “#6b7089”,
     ```
 
-6. settings.jsonの編集
+6. .vimrcの編集
+    VS Codeはremapのみ対応
+
+    ```vimrc
+    " ESC2度押しでハイライトを解除する
+    nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+    ```
+
+7. settings.jsonの編集
 
     ```json
     {
@@ -150,8 +160,12 @@
             //vを押した直後はvのコマンドが残っているので注意
             //visualmode後にすぐ実行したいものは、二重で定義する。
             //外部プラグイン呼び出し
-            //{"before": ["<Leader>", "b"],"commands": [{"command":"alignment.align"}]},             //揃える
-            //{"before": ["<Leader>", "v"],"commands": [{"command":"extension.commentaligner"}]},    //コメントを揃える
+            {"before": ["<Leader>", "b"],"commands": [{"command":"alignment.align"}]},             //揃える
+            {"before": ["<Leader>", "v"],"commands": [{"command":"extension.commentaligner"}]},    //コメントを揃える
+            {"before": ["J"],"after"               : ["1","0","j"]},        //移動を早める
+            {"before": ["K"],"after"               : ["1","0","k"]},        //移動を早める
+            {"before": ["H"],"after"               : ["0"]},                //端に移動
+            {"before": ["L"],"after"               : ["$"]},                //端に移動
         ],
         // 入力モードからノーマルモードへ戻った時に日本語入力をOFFにする
         // zenhan.exe(全角半角変更ツール)を指定フォルダへ格納しておくこと
@@ -207,7 +221,7 @@
         "editor.unicodeHighlight.ambiguousCharacters": false,
         // ステータスバーの色の設定を有効化する
         // 動作がもっさりするのでfalseにする
-        "vim.statusBarColorControl": true,
+        "vim.statusBarColorControl": false,
         "vim.statusBarColors.normal": [
             "#161821",
             "#818596"
@@ -253,11 +267,11 @@
             "#161821"
         ],
         "workbench.colorCustomizations": {
-            "statusBar.background": "#B4BE82",
-            "statusBar.noFolderBackground": "#B4BE82",
-            "statusBar.debuggingBackground": "#B4BE82",
-            "statusBar.foreground": "#161821",
-            "statusBar.debuggingForeground": "#161821"
+            "statusBar.background": "#161821",
+            "statusBar.noFolderBackground": "#161821",
+            "statusBar.debuggingBackground": "#161821",
+            "statusBar.foreground": "#818596",
+            "statusBar.debuggingForeground": "#818596"
         },
         "git.autofetch": true,
     }
