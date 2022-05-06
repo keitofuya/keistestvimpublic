@@ -4,6 +4,7 @@
   - [拡張機能のインストール](#拡張機能のインストール)
   - [コードスニペットの生成](#コードスニペットの生成)
   - [ツールのダウンロード](#ツールのダウンロード)
+  - [.vimrcの編集](#vimrcの編集)
   - [settings.jsonの設定](#settingsjsonの設定)
 
 ## 拡張機能のインストール
@@ -18,7 +19,7 @@
 - Material Icon Theme       アイコンの表示
 - Bracket Pair Colorizer 2  括弧の対応可視化
 - Rainbow CSV               CSVファイルの表示
-- Activitus Bar             　アクティビティバーに表示する項目をステータスバーに表示
+- Activitus Bar             アクティビティバーに表示する項目をステータスバーに表示
 - code eol 改行コードの可視化
 - Alignment 複数のコードを揃える =の位置とか
 - comment aligner コメントの位置を揃える
@@ -32,6 +33,19 @@
 - 全角半角切り替えツール(zenhan.exe)のダウンロード
 [実行ファイル](https://github.com/iuchim/zenhan/releases/download/v0.0.1/zenhan.zip)
 ダウンロードしたファイルを任意のフォルダへ格納する
+
+## .vimrcの編集
+
+1. C:/Users/[ユーザー名]/.vimrcを作成する
+2. .vimrcの編集
+    VS Codeはremapのみ対応
+
+    ```vimrc
+    " ESC2度押しでハイライトを解除する
+    nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+    " 対象をヤンクしている文字に置き換える(vim-operator-user/vim-operator-replace)
+    map R <Plug>(operator-replace)
+    ```
 
 ## settings.jsonの設定
 
@@ -49,15 +63,7 @@
     //“statusBar.noFolderForeground”: “#6b7089”,
     ```
 
-6. .vimrcの編集
-    VS Codeはremapのみ対応
-
-    ```vimrc
-    " ESC2度押しでハイライトを解除する
-    nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
-    ```
-
-7. settings.jsonの編集
+6. settings.jsonの編集
 
     ```json
     {
