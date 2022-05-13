@@ -13,11 +13,14 @@
     - [WSL2をデフォルトに設定](#wsl2をデフォルトに設定)
   - [WSL側の設定](#wsl側の設定)
     - [プラグインの設定](#プラグインの設定)
-      - [Nerdフォントのインストール](#nerdフォントのインストール)
+      - [Nerdフォントのインストール(WSL側でインストールすればよいので不要)](#nerdフォントのインストールwsl側でインストールすればよいので不要)
       - [dein.vimのインストール](#deinvimのインストール)
     - [Gitのインストール](#gitのインストール)
   - [wsl間のクリップボードの共有](#wsl間のクリップボードの共有)
     - [win32yank.exeを使用する](#win32yankexeを使用する)
+    - [Oh my Poshのインストール手順](#oh-my-poshのインストール手順)
+      - [Oh my Poshのインストール](#oh-my-poshのインストール-1)
+      - [Promptの変更](#promptの変更)
     - [WindowsにXServerを導入してvimで使用する](#windowsにxserverを導入してvimで使用する)
   - [CentOS7.xのインストール](#centos7xのインストール)
     - [GitよりCentOS7をダウンロード](#gitよりcentos7をダウンロード)
@@ -98,7 +101,7 @@ wsl --set-default-version 2
 
 ### プラグインの設定
 
-#### Nerdフォントのインストール
+#### Nerdフォントのインストール(WSL側でインストールすればよいので不要)
 
 ```bash
 git clone --branch=master --depth 1 https://github.com/ryanoasis/nerd-fonts.git
@@ -111,7 +114,7 @@ rm -rf nerd-fonts
 #### dein.vimのインストール
 
 ```bash
-mkdir ~/.vim/dein
+mkdir -p ~/.vim/dein
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ~/.vim/dein
 ```
@@ -165,6 +168,34 @@ options single-request-reopen
     nnoremap <silent>p :r !win32yank.exe -o<CR>
     vnoremap <silent>p :r !win32yank.exe -o<CR>
     ```
+
+### Oh my Poshのインストール手順
+
+#### Oh my Poshのインストール
+
+```bash
+## Install Oh my Posh
+sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+sudo chmod +x /usr/local/bin/oh-my-posh
+## Download the themes
+mkdir ~/.poshthemes
+wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
+sudo apt install unzip
+unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
+chmod u+rw ~/.poshthemes/*.json
+rm ~/.poshthemes/themes.zip
+```
+
+#### Promptの変更
+
+以下のコマンドを実行する
+
+```bash
+echo '"$(oh-my-posh --init --shell bash --config ~/.{theme}.omp.json)"' >> ~/.bash_profile
+. ~/.bash_profile
+```
+
+{theme}には好きなテーマを設定する。おすすめはtakuya.omp.json
 
 ### WindowsにXServerを導入してvimで使用する
 
