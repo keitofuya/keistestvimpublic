@@ -186,7 +186,7 @@ SVNサーバの対象リポジトリのhooksフォルダ内post-commit.bat内に
 rem SVNコミット時にJenkinsでビルドを実行する
 set user=Jenkinsユーザ名を設定
 set api_token=APIトークンの取得で生成したAPIトークンを指定
-set jenkinsURL=http://127.0.0.1:8080
+set jenkinsURL=JenkinsのURL:ポート番号
 set job=Jenkins上のJob名称
 set product_token=ビルドトリガタブで設定した認証トークンを指定
 
